@@ -25,7 +25,7 @@ const Logo = styled.div`
   text-shadow: 0 0 2px #ffffff, 0 0 4px #ffffff, 0 0 8px #ff00ff;
 
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 `;
 
@@ -35,6 +35,8 @@ const Hamburger = styled.div`
 
   @media (max-width: 768px) {
     display: flex;
+        font-size: 1.6rem;
+
   }
 `;
 
