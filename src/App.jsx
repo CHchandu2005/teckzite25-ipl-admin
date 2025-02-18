@@ -12,18 +12,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './Pages/Homepage';
 import Teamplayers from './Pages/Teamplayers';
 
+// const AppLayout = () => {
+//   return (
+//     <>
+//       <div>
+//         <Navbar />
+//       </div>
+//       <div>
+//         <Outlet />
+//       </div>
+//     </>
+//   );
+// };
+
 const AppLayout = () => {
   return (
     <>
-      <div>
+      <div className="fixed top-0 w-full z-50">
         <Navbar />
       </div>
-      <div>
+      <div className="pt-[9vh]">
         <Outlet />
       </div>
     </>
   );
 };
+
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
