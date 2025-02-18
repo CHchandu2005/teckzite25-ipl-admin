@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify'; // Importing Toast for notifications
-import ProfileCard from '../components/ProfileCard';
 import Oval from "react-loading-icons/dist/esm/components/oval";
 import { useParams } from 'react-router-dom';
+import ProfileCard from '../components/Profilecard';
 const Backend_Url = import.meta.env.VITE_BACKEND_URL;
 
 const GradientCards = styled.div`
@@ -231,6 +231,7 @@ const Teamplayers = () => {
           >
             ×
           </button>
+          {/* <ProfileCard player={singlePlayer} /> */}
           <ProfileCard player={singlePlayer} />
         </div>
       )}
