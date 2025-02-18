@@ -31,7 +31,7 @@ const AppLayout = () => {
       <div className="fixed top-0 w-full z-50">
         <Navbar />
       </div>
-      <div className="pt-[9vh]">
+      <div className="mt-[9vh]">
         <Outlet />
       </div>
     </>

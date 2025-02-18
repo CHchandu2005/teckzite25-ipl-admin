@@ -25,7 +25,7 @@ const Container = styled.div`
   flex-direction: column;
 
   @media (min-width: 1024px) {
-    height: 88vh;
+    height: 91vh;
   }
 `;
 
@@ -42,18 +42,18 @@ const HeroSection = styled.div`
 const ImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 88vh;
+  height: 91vh;
   overflow:hidden;
 
   @media (min-width: 768px) {
-    height: 88vh;
+    height: 91vh;
     width: 50%;
   }
 `;
 
 const Image = styled.img`
   width: 100%;
-  height: 88vh;
+  height: 91vh;
   object-fit: cover;
   object-position: top;
 `;
