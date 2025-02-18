@@ -15,7 +15,7 @@ const NavbarContainer = styled.nav`
   position: relative;
   z-index: 10;
   border-bottom: 2px solid #ff00ff;
-  height:12vh;
+  height:9vh;
 `;
 
 const Logo = styled.div`
