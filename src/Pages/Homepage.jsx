@@ -234,10 +234,10 @@ const NeonButton = styled.button`
   background: linear-gradient(45deg, #ff00ff, #00ffff);
   color: #fff;
   border: none;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 0.7rem;
   border-radius: 1rem;
   cursor: pointer;
-  width: 10rem;
+  width: 6rem;
   transition: background 0.3s ease;
   z-index:2;
   margin-top:5px;
@@ -790,26 +790,20 @@ setShowModal2(false)
             }}
           > 
           
-           {setnames.setname.length > 0 && (
-           
-        setnames.setname.map((setno, index) => (
-          
-          <div
-            key={index}
-            style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "center",
-              width: "100%", // Make buttons full width on mobile
-            }}
-          >
-             <NeonButton onClick={() => chooseset(setnames.set[index])}>
-        {setno} {/* Display setname, but send set value */}
+          {setnames.setname.length > 0 && (
+  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+    {setnames.setname.map((setno, index) => (
+      <NeonButton
+        key={index}
+        className="w-1/2"
+        onClick={() => chooseset(setnames.set[index])}
+      >
+        {setno}
       </NeonButton>
-          </div>
-        ))
-      )
-    }
+    ))}
+  </div>
+)}
+
       {/* // ) : (
       //   <p></p>
       // )} */}
