@@ -278,7 +278,6 @@ const AddPlayer = () => {
     strikeRate: '',
     image: null,
     basePrice: '',
-    "fiftybyhundred": '',
     economy:"",
     average:"",
     bidplace: '',
@@ -298,7 +297,6 @@ const AddPlayer = () => {
     strikeRate: '',
     image: null,
     basePrice: '',
-    "fiftybyhundred": '',
     economy:'',
     average:'',
     bidplace: '',
@@ -343,39 +341,45 @@ const AddPlayer = () => {
       });
     }
   };
-
   const fetchPlayers = async () => {
     try {
       const response = await fetch(`${Backend_Url}/api/getplayers`);
       const data = await response.json();
+  
       if (response.ok) {
-        console.log(data)
-        setPlayers(data);
-        setFilterPlayers(data);
+        console.log(data);
+  
+        // Sort players by set number in ascending order
+        const sortedData = [...data].sort((a, b) => a.set - b.set);
+  
+        setPlayers(sortedData);
+        setFilterPlayers(sortedData);
         setLoading(false);
-
+  
         const uniqueSetNamesAndNos = [
-          ...new Set(data.map(player => `${player.setname}-${player.set}`))
+          ...new Set(sortedData.map(player => `${player.setname}-${player.set}`))
         ];
-
-        //   // Now, extract the unique combinations back to an object array
+  
+        // Extract unique combinations back to an object array
         const extractedSetNames = uniqueSetNamesAndNos.map(pair => {
           const [setname, setno] = pair.split('-');
-          return { setname, setno };
+          return { setname, setno: Number(setno) }; // Ensure setno is a number
         });
-
+  
+        // Sort extracted set names by set number
+        extractedSetNames.sort((a, b) => a.setno - b.setno);
+  
         setSetNames(extractedSetNames);
-      }
-      else {
-        console.log("error while fetching data");
+      } else {
+        console.log("Error while fetching data");
         toast.error("Error while fetching data");
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -408,7 +412,6 @@ const AddPlayer = () => {
       strikeRate: '',
       image: null,
       basePrice: '',
-      'fiftybyhundred': '',
       economy:'',
       average:'',
       bidplace: '',
@@ -460,6 +463,16 @@ const AddPlayer = () => {
 
   const handleEditPlayer = (player) => {
 
+    if(player.role && player.role == "batter")
+    {
+      player.role = "batsman"
+    }
+
+    if(player.role && player.role == "all-rounder")
+    {
+      player.role = "allrounder"
+    }
+
     setEditoption(true);
     setNewPlayer(player)
     setIsModalOpen(true)
@@ -504,21 +517,22 @@ const AddPlayer = () => {
     setplayerProfile(false);
   }
 
-
   const handleSearch = (e) => {
-
-    const query = e.toLowerCase(); // Use a local variable for the query.
+    const query = e.toLowerCase();
     setSearchQuery(query);
-
+  
     if (query === "") {
-      setPlayers(filterplayers);
+      setPlayers([...filterplayers].sort((a, b) => a.set - b.set)); // Sort all players by set number
     } else {
-      const filteredPlayers = filterplayers.filter((player) =>
-        player.name.toLowerCase().includes(query)
-      );
+      const filteredPlayers = filterplayers
+        .filter((player) => player.name.toLowerCase().includes(query))
+        .sort((a, b) => a.set - b.set); // Sort filtered players by set number
+  
       setPlayers(filteredPlayers);
     }
   };
+  
+  
 
 
   useEffect(() => {
@@ -787,14 +801,6 @@ const AddPlayer = () => {
               name="strikeRate"
               placeholder="Strike Rate"
               value={newPlayer.strikeRate}
-              onChange={handleInputChange}
-              required
-            />
-            <ModalInput
-              type="text"
-              name="fiftybyhundred"
-              placeholder="50/100"
-              value={newPlayer.fiftybyhundred}
               onChange={handleInputChange}
               required
             />
