@@ -755,85 +755,125 @@ setShowModal2(false)
             </MainContent>
           </>
 
-        ) : !successbid? <ButtonGroup>
+        ) : !showModal2 && !successbid? <ButtonGroup>
           <Card><p>No palyers available</p></Card>
         </ButtonGroup >:null}
       </HeroSection>
-      {showModal2 ? (
-       <>
-        <NeonButton onClick={()=>accelerateplayers()}>Accelerate</NeonButton>
-        <NeonButton onClick={()=>endauction()}>EndAuction</NeonButton>
-       
-        <div
-          style={{
-            height: "100vh",
-            backgroundColor: "rgb(37, 44, 59)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1,
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            padding: "20px",
-          }}
-        >
+      {/* {showModal2 ? (
+        <>
+         
+
           <div
             style={{
+              minHeight: "100vh",
+              backgroundColor: "rgb(37, 44, 59)",
               display: "flex",
-              flexDirection: "column", // Use column for mobile-first approach
               justifyContent: "center",
               alignItems: "center",
-              gap: "20px",
-              maxWidth: "500px",
+              zIndex: 1,
+              width: "100%",
+              padding: "20px",
+              overflowY: "auto",
             }}
-          > 
-          
-          {setnames.setname.length > 0 && (
-  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
-    {setnames.setname.map((setno, index) => (
-      <NeonButton
-        key={index}
-        className="w-1/2"
-        onClick={() => chooseset(setnames.set[index])}
-      >
-        {setno}
-      </NeonButton>
-    ))}
-  </div>
-)}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column", // Use column for mobile-first approach
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "20px",
+                maxWidth: "500px",
+                marginTop:"200px"
 
-      {/* // ) : (
-      //   <p></p>
-      // )} */}
- {  setnames.setwithoutplayer_setname.length > 0 && (
-    <>
-      <h4>Sets without Players</h4>
-      {setnames.setwithoutplayer_setname.map((setObj, index) => (
-        <div
-          key={`without-${index}`}
-          style={{
-            margin: "10px",
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <NeonButton onClick={()=>toast.error("no players in this set")}>
-            {setObj}
-          </NeonButton>
-        </div>
-      ))}
-    </>
-  )}
+              }}
+            >
+
+
+              {setnames.setname.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+                  {setnames.setname.map((setno, index) => (
+                    <NeonButton
+                      key={index}
+                      className="w-1/2"
+                      onClick={() => chooseset(setnames.set[index])}
+                    >
+                      {setno}
+                    </NeonButton>
+                  ))}
+                </div>
+              )}
+              {setnames.setwithoutplayer_setname.length > 0 && (
+                <>
+                  <h4>Sets without Players</h4>
+                  {setnames.setwithoutplayer_setname.map((setObj, index) => (
+                    <div
+                      key={`without-${index}`}
+                      style={{
+                        margin: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <NeonButton onClick={() => toast.error("no players in this set")}>
+                        {setObj}
+                      </NeonButton>
+                    </div>
+                  ))}
+                </>
+              )}
 
           </div>
         </div> 
+        <NeonButton onClick={() => accelerateplayers()}>Accelerate</NeonButton>
+        <NeonButton onClick={() => endauction()}>EndAuction</NeonButton>
         </>
       ) : (
         ""
-      )}
+      )} */}
+      {showModal2 ? (
+  <>
+  <div className='bg-[rgb(37,44,59)]'>
+    <div className="min-h-screen bg-[rgb(37,44,59)] relative flex justify-center items-center z-10 w-full p-5 overflow-y-auto">
+      <div className="flex flex-col justify-center items-center gap-5 max-w-[500px] mt-[200px] md:mt-[10px]">
+        {setnames.setname.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+            {setnames.setname.map((setno, index) => (
+              <NeonButton
+                key={index}
+                className="w-1/2"
+                onClick={() => chooseset(setnames.set[index])}
+              >
+                {setno}
+              </NeonButton>
+            ))}
+          </div>
+        )}
+        {setnames.setwithoutplayer_setname.length > 0 && (
+          <>
+            <h4>Sets without Players</h4>
+            {setnames.setwithoutplayer_setname.map((setObj, index) => (
+              <div
+                key={`without-${index}`}
+                className="m-2.5 flex justify-center w-full"
+              >
+                <NeonButton onClick={() => toast.error("no players in this set")}>
+                  {setObj}
+                </NeonButton>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+    </div>
+    <NeonButton onClick={() => accelerateplayers()}>Accelerate</NeonButton>
+    <NeonButton onClick={() => endauction()}>EndAuction</NeonButton>
+    </div>
+  </>
+) : (
+  ""
+)}
 
     </Container>
 
