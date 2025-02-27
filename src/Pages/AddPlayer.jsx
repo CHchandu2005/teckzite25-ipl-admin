@@ -350,11 +350,13 @@ const AddPlayer = () => {
         console.log(data);
   
         // Sort players by set number in ascending order
-        const sortedData = [...data].sort((a, b) => a.set - b.set);
+        const sortedData = data.message == "No players found" ?data: [...data].sort((a, b) => a.set - b.set);
+        // const sortedData = data;
   
         setPlayers(sortedData);
         setFilterPlayers(sortedData);
         setLoading(false);
+        console.loh("In fetch players")
   
         const uniqueSetNamesAndNos = [
           ...new Set(sortedData.map(player => `${player.setname}-${player.set}`))
