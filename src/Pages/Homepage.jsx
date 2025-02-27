@@ -12,7 +12,7 @@ import {
   FaArrowLeft,
   FaArrowRight,
 } from 'react-icons/fa';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 const Backend_Url = import.meta.env.VITE_BACKEND_URL;
 
 
@@ -293,7 +293,7 @@ const NeonButton1 = styled.button`
     right: 0;
   }
 `;
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { Modal } from "react-bootstrap";
@@ -305,25 +305,25 @@ const HomePage = () => {
   const [selectedTeam, setSelectedTeam] = useState(''); // Selected team for the bid
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
-  const [selectedSet,setSelectedSet]=useState('');
-  const [continueauction,setContinue]=useState(true);
-  const [successbid,setSuccessbid]=useState(false);
-  const [accelerate,setAccelerate]=useState(false);
-  const [setnames,setSetnames]=useState({ 
-    setname:[],
-    set:[],
-    setwithoutplayer_set:[],
-    setwithoutplayer_setname:[]
+  const [selectedSet, setSelectedSet] = useState('');
+  const [continueauction, setContinue] = useState(true);
+  const [successbid, setSuccessbid] = useState(false);
+  const [accelerate, setAccelerate] = useState(false);
+  const [setnames, setSetnames] = useState({
+    setname: [],
+    set: [],
+    setwithoutplayer_set: [],
+    setwithoutplayer_setname: []
   }
-  ) 
-  const [teamnames,setTeamNames]=useState([]);
+  )
+  const [teamnames, setTeamNames] = useState([]);
   // Fetch the current player on component load
   useEffect(() => {
     fetchTeams();
   }, []);
   const navigate = useNavigate();
   const token = localStorage.getItem("Token");
-  const fetchTeams=async()=>{
+  const fetchTeams = async () => {
     console.log("fetching sets")
     try {
       const response = await fetch(`${Backend_Url}/api/getsets`);
@@ -331,13 +331,13 @@ const HomePage = () => {
       if (response.ok) {
         console.log(data)
         setSetnames({
-          setname: data.setname || [],  
+          setname: data.setname || [],
           set: data.set || [],
-          setwithoutplayer_set:data.setwithoutplayers_set ||[],
-          setwithoutplayer_setname:data.setwithoutplayers_setname ||[],
+          setwithoutplayer_set: data.setwithoutplayers_set || [],
+          setwithoutplayer_setname: data.setwithoutplayers_setname || [],
         });
         setTeamNames(data.teamnames);
-      setShowModal2(true)
+        setShowModal2(true)
       }
       else {
         console.log("error while fetching data");
@@ -347,22 +347,22 @@ const HomePage = () => {
     catch (error) {
       console.log(error);
     }
-    
+
   }
-  
-  const fetchPlayer = (set,bidplace = null, direction) => {
+
+  const fetchPlayer = (set, bidplace = null, direction) => {
     console.log(set)
     console.log(player)
     setShowModal2(false)
     setAccelerate(false)
-    if(!continueauction){
+    if (!continueauction) {
       toast.error("auction is paused,resume it");
       return;
     }
     const url = bidplace
       ? `${Backend_Url}/api/playersToBuy?set=${set}&bidplace=${bidplace}&direction=${direction}`
       : `${Backend_Url}/api/playersToBuy?set=${set}`;
-    
+
 
     axios
       .get(url)
@@ -377,7 +377,7 @@ const HomePage = () => {
         } else {
           setPlayer(null);
           socket.emit('updateViewer', null)
-          socket.emit('pauseAuction',true)
+          socket.emit('pauseAuction', true)
           setShowModal2(true)
           fetchTeams()
         }
@@ -388,43 +388,43 @@ const HomePage = () => {
   };
 
   const handleNext = () => {
-    if(accelerate){
+    if (accelerate) {
       if (player?.set && player?.bidplace) {
-        accelerateplayers(player.set,player.bidplace, "next");
+        accelerateplayers(player.set, player.bidplace, "next");
       } else {
         accelerateplayers();
       }
     }
-   else { 
-   if (player?.set && player?.bidplace) {
-      fetchPlayer(selectedSet,player.bidplace, "next");
-    } else {
-      fetchPlayer(selectedSet);
+    else {
+      if (player?.set && player?.bidplace) {
+        fetchPlayer(selectedSet, player.bidplace, "next");
+      } else {
+        fetchPlayer(selectedSet);
+      }
     }
-  }
   };
 
   const handlePrev = () => {
-    if(accelerate){
+    if (accelerate) {
       if (player?.bidplace && player.bidplace > 1 && player?.set) {
-        accelerateplayers(player.set,player.bidplace, "prev");
+        accelerateplayers(player.set, player.bidplace, "prev");
       }
       else {
         accelerateplayers()
       }
     }
-    else{ 
-    if (player?.bidplace && player.bidplace > 1 && player?.set) {
-      fetchPlayer(selectedSet,player.bidplace, "prev");
-    }
     else {
-      fetchPlayer(selectedSet)
+      if (player?.bidplace && player.bidplace > 1 && player?.set) {
+        fetchPlayer(selectedSet, player.bidplace, "prev");
+      }
+      else {
+        fetchPlayer(selectedSet)
+      }
     }
-  }
   };
 
   const handleIncreaseBid = () => {
-    if(!continueauction){
+    if (!continueauction) {
       toast.error("Auction is paused,Resume it");
       return;
     }
@@ -437,7 +437,7 @@ const HomePage = () => {
   };
 
   const handleDecreaseBid = () => {
-    if(!continueauction){
+    if (!continueauction) {
       toast.error("Auction is paused,Resume it");
       return;
     }
@@ -448,7 +448,7 @@ const HomePage = () => {
     }
   };
   const handleAssignClick = () => {
-    if(!continueauction){
+    if (!continueauction) {
       toast.error("Auction is paused,Resume it");
       return;
     }
@@ -484,27 +484,27 @@ const HomePage = () => {
         )
         .then(() => {
           alert('Bid confirmed!');
-          
-      socket.emit("bidConfirmed",true,selectedTeam);
-         //fetchPlayer( player.set,player.bidplace, "next");
-     
-         setSuccessbid(true)
-         setPlayer(false)
-         setTimeout(() => {
-          socket.emit("bidConfirmed",false,null);
-          setSuccessbid(false)
-          
-          if(accelerate){
-             accelerateplayers(player.set, player.bidplace, "next");
-          }
-             fetchPlayer(selectedSet, player.bidplace, "next");
-         }, 8000);
+
+          socket.emit("bidConfirmed", true, selectedTeam);
+          //fetchPlayer( player.set,player.bidplace, "next");
+
+          setSuccessbid(true)
+          setPlayer(false)
+          setTimeout(() => {
+            socket.emit("bidConfirmed", false, null);
+            setSuccessbid(false)
+
+            if (accelerate) {
+              accelerateplayers(player.set, player.bidplace, "next");
+            }
+            fetchPlayer(selectedSet, player.bidplace, "next");
+          }, 8000);
         })
         .catch((error) => {
           console.error('Error confirming bid:', error);
 
           if (error.response && error.response.data && error.response.data.error) {
-           
+
             toast.error(error.response.data.error);
           } else {
             // Generic or network error
@@ -517,23 +517,23 @@ const HomePage = () => {
   };
 
   const chooseset = (set) => {
-    
+
     setSelectedSet(set)
     fetchPlayer(set);
   }
-  const handleunsold = async(id) => {
-    if(!continueauction){
+  const handleunsold = async (id) => {
+    if (!continueauction) {
       toast.error("Auction is paused,Resume it");
       return;
     }
-    const confirmed=confirm("do you want to make player as unsold?")
-    if(!confirmed){
+    const confirmed = confirm("do you want to make player as unsold?")
+    if (!confirmed) {
       return;
     }
-    
-     let inaccelerate=false
-    if(accelerate){
-    inaccelerate=true;
+
+    let inaccelerate = false
+    if (accelerate) {
+      inaccelerate = true;
 
     }
     try {
@@ -542,9 +542,9 @@ const HomePage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id,inaccelerate }), 
+        body: JSON.stringify({ id, inaccelerate }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         console.log("Success:", data);
@@ -554,27 +554,27 @@ const HomePage = () => {
     } catch (error) {
       console.error("Error sending request:", error);
     }
-    socket.emit("bidConfirmed",true,null);
+    socket.emit("bidConfirmed", true, null);
     setSuccessbid(true)
     setPlayer(false)
     setTimeout(() => {
-     socket.emit("bidConfirmed",false,null);
-     setSuccessbid(false)
-     if(accelerate){
+      socket.emit("bidConfirmed", false, null);
+      setSuccessbid(false)
+      if (accelerate) {
         accelerateplayers(player.set, player.bidplace, "next");
-     }else{ 
+      } else {
         fetchPlayer(selectedSet, player.bidplace, "next");
-     }
+      }
     }, 8000);
-  
+
   }
-  const accelerateplayers=async(set,bidplace=null,direction)=>{
-    if(!continueauction){
+  const accelerateplayers = async (set, bidplace = null, direction) => {
+    if (!continueauction) {
       toast.error("auction is paused,resume it");
       return;
     }
-setAccelerate(true)
-setShowModal2(false)
+    setAccelerate(true)
+    setShowModal2(false)
     const url = bidplace
       ? `${Backend_Url}/api/accelerateplayers?set=${set}&bidplace=${bidplace}&direction=${direction}`
       : `${Backend_Url}/api/accelerateplayers?`;
@@ -591,7 +591,7 @@ setShowModal2(false)
         } else {
           setPlayer(null);
           socket.emit('updateViewer', null)
-          socket.emit('pauseAuction',true)
+          socket.emit('pauseAuction', true)
           setShowModal2(true)
           fetchTeams()
         }
@@ -600,50 +600,50 @@ setShowModal2(false)
         console.error('Error fetching player:', err);
       });
   }
-  const endauction=()=>{
-    socket.emit("endauction",true)
+  const endauction = () => {
+    socket.emit("endauction", true)
 
     navigate('/');
   }
-  const pauseAuction=()=>{
-   
+  const pauseAuction = () => {
+
     setContinue((prev) => {
       const newState = !prev; // Toggle state
-  
+
       if (newState) {
-       
-        socket.emit("pauseAuction",false);
+
+        socket.emit("pauseAuction", false);
       } else {
-        
+
         socket.emit("pauseAuction", true);
       }
-  
-      return newState; 
+
+      return newState;
     });
   }
 
   return (
     <Container>
       <HeroSection>
-      {successbid && (
+        {successbid && (
           <div className="fixed z-110 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-green-300 p-8 rounded-lg shadow-lg">
               <h2 className="text-4xl font-bold mb-4">Successfully sold or unsold</h2>
             </div>
-          </div> 
+          </div>
         )}
         {player ? (
           <>
-          
+
             <ImageContainer>
               <Image src={player.image} alt={player.name} />
               <GradientOverlay />
               <HeroContent>
-                
+
                 <HeroText>
                   <div className="flex items-center space-x-3 text-gray-200 mb-2">
                     <FaFlag className="w-5 h-5 text-[#ff00ff]" />
-                    <span className="text-lg">Team India</span>
+                    <span className="text-lg">Team {player.nationality}</span>
                   </div>
                   <HeroTitle>{player.name}</HeroTitle>
                   <HeroSubText>
@@ -658,15 +658,15 @@ setShowModal2(false)
                   </HeroSubText>
                 </HeroText>
               </HeroContent>
-              
+
             </ImageContainer>
-            
+
             <MainContent>
-          
+
               <Card>
                 <CardTitle>
                   <FaChartLine className=" mr-1  text-[#ff00ff]" />
-                  <NeonButton1 onClick={()=>pauseAuction()}>{continueauction?"pause":"resume"}</NeonButton1>
+                  <NeonButton1 onClick={() => pauseAuction()}>{continueauction ? "pause" : "resume"}</NeonButton1>
 
                   Career Statistics
                 </CardTitle>
@@ -684,9 +684,8 @@ setShowModal2(false)
                     <CardItemValue>{player.strikeRate}</CardItemValue>
                   </CardItem>
                   <CardItem>
-                    <CardItemTitle>50/100</CardItemTitle>
-                    <CardItemValue>{player.
-                      fiftybyhundred}</CardItemValue>
+                    <CardItemTitle>Average</CardItemTitle>
+                    <CardItemValue>{player.average}</CardItemValue>
                   </CardItem>
                 </CardGrid>
               </Card>
@@ -712,7 +711,7 @@ setShowModal2(false)
                   <Button onClick={handleIncreaseBid}>
                     <FaPlus />
                   </Button>
-                  <Button  onClick={()=>handleunsold(player._id)}>
+                  <Button onClick={() => handleunsold(player._id)}>
                     Unsold
                   </Button>
                   <Button onClick={handlePrev}>
@@ -755,125 +754,52 @@ setShowModal2(false)
             </MainContent>
           </>
 
-        ) : !showModal2 && !successbid? <ButtonGroup>
+        ) : !showModal2 && !successbid ? <ButtonGroup>
           <Card><p>No palyers available</p></Card>
-        </ButtonGroup >:null}
+        </ButtonGroup > : null}
       </HeroSection>
-      {/* {showModal2 ? (
+      {showModal2 ? (
         <>
-         
-
-          <div
-            style={{
-              minHeight: "100vh",
-              backgroundColor: "rgb(37, 44, 59)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              zIndex: 1,
-              width: "100%",
-              padding: "20px",
-              overflowY: "auto",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column", // Use column for mobile-first approach
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "20px",
-                maxWidth: "500px",
-                marginTop:"200px"
-
-              }}
-            >
-
-
-              {setnames.setname.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
-                  {setnames.setname.map((setno, index) => (
-                    <NeonButton
-                      key={index}
-                      className="w-1/2"
-                      onClick={() => chooseset(setnames.set[index])}
-                    >
-                      {setno}
-                    </NeonButton>
-                  ))}
-                </div>
-              )}
-              {setnames.setwithoutplayer_setname.length > 0 && (
-                <>
-                  <h4>Sets without Players</h4>
-                  {setnames.setwithoutplayer_setname.map((setObj, index) => (
-                    <div
-                      key={`without-${index}`}
-                      style={{
-                        margin: "10px",
-                        display: "flex",
-                        justifyContent: "center",
-                        width: "100%",
-                      }}
-                    >
-                      <NeonButton onClick={() => toast.error("no players in this set")}>
-                        {setObj}
+          <div className='bg-[rgb(37,44,59)]'>
+            <div className="min-h-screen bg-[rgb(37,44,59)] relative flex justify-center items-center z-10 w-full p-5 overflow-y-auto">
+              <div className="flex flex-col justify-center items-center gap-5 max-w-[500px] mt-[200px] md:mt-[10px]">
+                {setnames.setname.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+                    {setnames.setname.map((setno, index) => (
+                      <NeonButton
+                        key={index}
+                        className="w-1/2"
+                        onClick={() => chooseset(setnames.set[index])}
+                      >
+                        {setno}
                       </NeonButton>
-                    </div>
-                  ))}
-                </>
-              )}
-
+                    ))}
+                  </div>
+                )}
+                {setnames.setwithoutplayer_setname.length > 0 && (
+                  <>
+                    <h4>Sets without Players</h4>
+                    {setnames.setwithoutplayer_setname.map((setObj, index) => (
+                      <div
+                        key={`without-${index}`}
+                        className="m-2.5 flex justify-center w-full"
+                      >
+                        <NeonButton onClick={() => toast.error("no players in this set")}>
+                          {setObj}
+                        </NeonButton>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+            <NeonButton onClick={() => accelerateplayers()}>Accelerate</NeonButton>
+            <NeonButton onClick={() => endauction()}>EndAuction</NeonButton>
           </div>
-        </div> 
-        <NeonButton onClick={() => accelerateplayers()}>Accelerate</NeonButton>
-        <NeonButton onClick={() => endauction()}>EndAuction</NeonButton>
         </>
       ) : (
         ""
-      )} */}
-      {showModal2 ? (
-  <>
-  <div className='bg-[rgb(37,44,59)]'>
-    <div className="min-h-screen bg-[rgb(37,44,59)] relative flex justify-center items-center z-10 w-full p-5 overflow-y-auto">
-      <div className="flex flex-col justify-center items-center gap-5 max-w-[500px] mt-[200px] md:mt-[10px]">
-        {setnames.setname.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
-            {setnames.setname.map((setno, index) => (
-              <NeonButton
-                key={index}
-                className="w-1/2"
-                onClick={() => chooseset(setnames.set[index])}
-              >
-                {setno}
-              </NeonButton>
-            ))}
-          </div>
-        )}
-        {setnames.setwithoutplayer_setname.length > 0 && (
-          <>
-            <h4>Sets without Players</h4>
-            {setnames.setwithoutplayer_setname.map((setObj, index) => (
-              <div
-                key={`without-${index}`}
-                className="m-2.5 flex justify-center w-full"
-              >
-                <NeonButton onClick={() => toast.error("no players in this set")}>
-                  {setObj}
-                </NeonButton>
-              </div>
-            ))}
-          </>
-        )}
-      </div>
-    </div>
-    <NeonButton onClick={() => accelerateplayers()}>Accelerate</NeonButton>
-    <NeonButton onClick={() => endauction()}>EndAuction</NeonButton>
-    </div>
-  </>
-) : (
-  ""
-)}
+      )}
 
     </Container>
 
