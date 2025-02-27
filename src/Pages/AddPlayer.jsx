@@ -6,6 +6,8 @@ import ProfileCard from '../components/Profilecard';
 import SpinningCircles from "react-loading-icons/dist/esm/components/spinning-circles";
 import Oval from "react-loading-icons/dist/esm/components/oval";
 //search styles
+import { MdOutlineCurrencyRupee } from "react-icons/md";
+
 
 const Backend_Url = import.meta.env.VITE_BACKEND_URL;
 
@@ -356,7 +358,7 @@ const AddPlayer = () => {
         setPlayers(sortedData);
         setFilterPlayers(sortedData);
         setLoading(false);
-        console.loh("In fetch players")
+        console.log("In fetch players")
   
         const uniqueSetNamesAndNos = [
           ...new Set(sortedData.map(player => `${player.setname}-${player.set}`))
@@ -707,7 +709,13 @@ const AddPlayer = () => {
                     <TableData>{player.wickets}</TableData>
                     <TableData>{player.strikeRate}</TableData>
                     <TableData>{player.economy}</TableData>
-                    <TableData>${player.basePrice}</TableData>
+                    {/* <TableData><MdOutlineCurrencyRupee />{player.basePrice}</TableData> */}
+                    <TableData>
+  <span className="flex items-center">
+    <MdOutlineCurrencyRupee className="" /> {player.basePrice}
+  </span>
+</TableData>
+
                     <TableData>{player.set}</TableData>
                     <TableData>{player.bidplace}</TableData>
                     <TableData>{player.isSold ? "sold" : "unsold"}</TableData>
