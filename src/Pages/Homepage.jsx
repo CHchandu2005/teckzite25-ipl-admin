@@ -429,7 +429,7 @@ const HomePage = () => {
       return;
     }
     if (player) {
-      const increment = getBidIncrement(player.basePrice)
+      const increment = getBidIncrement(bidAmount)
       setBidAmount((prev) => prev + increment);
       console.log(bidAmount)
       socket.emit('bidAmount', bidAmount + increment);
@@ -442,7 +442,7 @@ const HomePage = () => {
       return;
     }
     if (player) {
-      const decrement = getBidIncrement(player.basePrice)
+      const decrement = getBidIncrement(bidAmount)
       setBidAmount((prev) => Math.max(player.basePrice, prev - decrement));
       socket.emit('bidAmount', Math.max(player.basePrice, bidAmount - decrement));
     }
