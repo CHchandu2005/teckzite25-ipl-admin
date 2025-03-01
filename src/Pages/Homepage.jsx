@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
-import { getBidIncrement } from './BidConfig';
+import { getBidIncrement,getBidDecrement } from './BidConfig';
 import {
   FaFlag,
   FaBaseballBall,
@@ -442,7 +442,7 @@ const HomePage = () => {
       return;
     }
     if (player) {
-      const decrement = getBidIncrement(bidAmount)
+      const decrement = getBidDecrement(bidAmount)
       setBidAmount((prev) => Math.max(player.basePrice, prev - decrement));
       socket.emit('bidAmount', Math.max(player.basePrice, bidAmount - decrement));
     }
