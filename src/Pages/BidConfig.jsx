@@ -15,9 +15,9 @@ export const getBidIncrement = (currentBidPrice) => {
 export const getBidDecrement = (currentBidPrice) => {
   if (currentBidPrice <105) {
     return 5; // 5 lakh
-  } else if (currentBidPrice >100 && currentBidPrice <220) {
+  } else if (currentBidPrice >=105 && currentBidPrice <220) {
     return 10; // 10 lakh
-  } else if(currentBidPrice>200 && currentBidPrice<525) {
+  } else if(currentBidPrice>=220 && currentBidPrice<525) {
     return 20; // 20 lakh
   }
   else{
