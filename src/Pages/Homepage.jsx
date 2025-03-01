@@ -697,11 +697,11 @@ const HomePage = () => {
                 <CardGrid>
                   <CardItem>
                     <CardItemTitle>BasePrice</CardItemTitle>
-                    <CardItemValue>{player.basePrice.toLocaleString()}</CardItemValue>
+                    <CardItemValue>{player.basePrice.toLocaleString()} L</CardItemValue>
                   </CardItem>
                   <CardItem>
                     <CardItemTitle>Current Bid</CardItemTitle>
-                    <CardItemValue style={{ color: 'green' }}>{bidAmount}</CardItemValue>
+                    <CardItemValue style={{ color: 'green' }}>{bidAmount} L</CardItemValue>
                   </CardItem>
                 </CardGrid>
                 <ButtonGroup>

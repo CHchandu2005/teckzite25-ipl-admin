@@ -711,10 +711,10 @@ const AddPlayer = () => {
                     <TableData>{player.economy}</TableData>
                     {/* <TableData><MdOutlineCurrencyRupee />{player.basePrice}</TableData> */}
                     <TableData>
-  <span className="flex items-center">
-    <MdOutlineCurrencyRupee className="" /> {player.basePrice}
-  </span>
-</TableData>
+                      <span className="flex items-center">
+                        <MdOutlineCurrencyRupee className="" /> {player.basePrice} L
+                      </span>
+                    </TableData>
 
                     <TableData>{player.set}</TableData>
                     <TableData>{player.bidplace}</TableData>

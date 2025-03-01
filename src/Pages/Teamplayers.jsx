@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'; // Importing Toast for notifications
 import Oval from "react-loading-icons/dist/esm/components/oval";
 import { useParams } from 'react-router-dom';
 import ProfileCard from '../components/Profilecard';
+import { MdOutlineCurrencyRupee } from 'react-icons/md';
 const Backend_Url = import.meta.env.VITE_BACKEND_URL;
 
 const GradientCards = styled.div`
@@ -185,7 +186,15 @@ const Teamplayers = () => {
                     <TableData>{player.runs}</TableData>
                     <TableData>{player.wickets}</TableData>
                     <TableData>{player.strikeRate}</TableData>
-                    <TableData>${player.basePrice}</TableData>
+                    {/* <TableData>${player.basePrice}</TableData> */}
+
+                    <TableData>
+                                          <span className="flex items-center">
+                                            <MdOutlineCurrencyRupee className="" /> {player.basePrice} L
+                                          </span>
+                                        </TableData>
+
+
                     <TableData>{player.bidplace}</TableData>
                     <TableData>{player.isSold ? "Sold" : "Unsold"}</TableData>
                   </tr>

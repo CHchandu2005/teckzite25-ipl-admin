@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdOutlineCurrencyRupee } from 'react-icons/md';
 import styled from 'styled-components';
 
 // Styled component
@@ -152,7 +153,12 @@ const ProfileCard = ({ player }) => {
             </tr>
             <tr>
               <TableData>Base Price</TableData>
-              <TableData>${player.basePrice}</TableData>
+              {/* <TableData>${player.basePrice}</TableData> */}
+               <TableData>
+                                    <span className="flex items-center">
+                                      <MdOutlineCurrencyRupee className="" /> {player.basePrice} L
+                                    </span>
+                                  </TableData>
             </tr>
             <tr>
               <TableData>Strike Rate</TableData>
