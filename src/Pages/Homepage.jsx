@@ -466,6 +466,7 @@ const HomePage = () => {
   };
   const handleConfirmBid = () => {
 
+    console.log("In handleconfirm bod:",bidAmount);
     if (player) {
       axios
         .post(
