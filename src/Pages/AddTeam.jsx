@@ -286,7 +286,7 @@ const AddTeam = () => {
   const [showModal, setShowModal] = useState(false);
   const [teamID, setTeamID] = useState("");
   const [teamMembers, setTeamMembers] = useState(["", "", ""]);
-  const [initialPurse, setInitialPurse] = useState(50000);
+  const [initialPurse, setInitialPurse] = useState(5000);
   const [teamData, setTeamData] = useState([]); // State for storing fetched team data
   const [isEditing, setIsEditing] = useState(false); // New state to check if we're editing a team
   const [editingTeamID, setEditingTeamID] = useState(""); // Store the teamID of the team being edited
