@@ -286,7 +286,6 @@ const AddTeam = () => {
   const [showModal, setShowModal] = useState(false);
   const [teamID, setTeamID] = useState("");
   const [teamMembers, setTeamMembers] = useState(["", "", ""]);
-  // const [initialPurse, setInitialPurse] = useState(5000);
   const [teamData, setTeamData] = useState([]); // State for storing fetched team data
   const [isEditing, setIsEditing] = useState(false); // New state to check if we're editing a team
   const [editingTeamID, setEditingTeamID] = useState(""); // Store the teamID of the team being edited
@@ -303,7 +302,6 @@ const AddTeam = () => {
       setIsEditing(true); // Set to true when editing
       setTeamID(team.teamID);
       setTeamMembers(team.teamMembers || ["", "", ""]);
-      // setInitialPurse(team.initialPurse);
       setEditingTeamID(team.teamID); // Store the teamID for editing
     } else {
       if(teamData.length == 10)
@@ -314,7 +312,6 @@ const AddTeam = () => {
       setIsEditing(false); // Reset to false when adding new team
       setTeamID("");
       setTeamMembers(["", "", ""]);
-      // setInitialPurse(5000);
     }
     setShowModal(true);
   };
@@ -377,7 +374,6 @@ const AddTeam = () => {
     const teamDataToSubmit = {
       teamID,
       teamMembers: nonEmptyMembers,
-      // initialPurse,
     };
     console.log(teamDataToSubmit);
   
