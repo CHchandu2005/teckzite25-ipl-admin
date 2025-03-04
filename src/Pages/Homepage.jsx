@@ -498,7 +498,7 @@ const HomePage = () => {
               accelerateplayers(player.set, player.bidplace, "next");
             }
             fetchPlayer(selectedSet, player.bidplace, "next");
-          }, 8000);
+          }, 9000);
         })
         .catch((error) => {
           console.error('Error confirming bid:', error);
@@ -565,7 +565,7 @@ const HomePage = () => {
       } else {
         fetchPlayer(selectedSet, player.bidplace, "next");
       }
-    }, 8000);
+    }, 9000);
 
   }
   const accelerateplayers = async (set, bidplace = null, direction) => {
