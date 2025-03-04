@@ -314,7 +314,7 @@ const AddTeam = () => {
       setIsEditing(false); // Reset to false when adding new team
       setTeamID("");
       setTeamMembers(["", "", ""]);
-      setInitialPurse(50000);
+      setInitialPurse(5000);
     }
     setShowModal(true);
   };
