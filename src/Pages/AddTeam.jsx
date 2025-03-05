@@ -505,10 +505,10 @@ const AddTeam = () => {
                     Team ID: <span style={{ color: '#ff00ff' }}>{team.teamID}</span>
                   </Title>
                   <Text>
-                    <BoldText>Initial Purse:</BoldText> {team.initialPurse}
+                    <BoldText>Initial Purse:</BoldText> {team.initialPurse} L
                   </Text>
                   <Text>
-                    <BoldText>Remaining Purse:</BoldText> {team.remainingPurse}
+                    <BoldText>Remaining Purse:</BoldText> {team.remainingPurse} L
                   </Text>
                   <Text>
                     <BoldText>Bowlers:</BoldText> {team.bowlers}
