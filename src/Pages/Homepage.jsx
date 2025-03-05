@@ -764,7 +764,7 @@ const HomePage = () => {
           <div className='bg-[rgb(37,44,59)]'>
             <div className="min-h-screen bg-[rgb(37,44,59)] relative flex justify-center items-center z-10 w-full p-5 overflow-y-auto">
               <div className="flex flex-col justify-center items-center gap-5 max-w-[500px] mt-[200px] md:mt-[10px]">
-                {setnames.setname.length > 0 && (
+                {/* {setnames.setname.length > 0 && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
                     {setnames.setname.map((setno, index) => (
                       <NeonButton
@@ -776,7 +776,24 @@ const HomePage = () => {
                       </NeonButton>
                     ))}
                   </div>
+                )} */}
+                {setnames.setname.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+                    {setnames.setname
+                      .slice() // Create a copy to avoid mutating the original array
+                      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true })) // Sort in ascending order
+                      .map((setno, index) => (
+                        <NeonButton
+                          key={index}
+                          className="w-1/2"
+                          onClick={() => chooseset(setno)}
+                        >
+                          {setno}
+                        </NeonButton>
+                      ))}
+                  </div>
                 )}
+
                 {setnames.setwithoutplayer_setname.length > 0 && (
                   <>
                     <h4>Sets without Players</h4>
