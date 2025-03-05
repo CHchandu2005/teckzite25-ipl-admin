@@ -786,7 +786,7 @@ const HomePage = () => {
                         <NeonButton
                           key={index}
                           className="w-1/2"
-                          onClick={() => chooseset(setno)}
+                          onClick={() => chooseset(setnames.set[index])}
                         >
                           {setno}
                         </NeonButton>
