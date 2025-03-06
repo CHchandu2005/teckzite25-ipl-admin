@@ -237,7 +237,7 @@ const NeonButton = styled.button`
   padding: 0.4rem 0.7rem;
   border-radius: 1rem;
   cursor: pointer;
-  width: 6rem;
+  width: 8rem;
   transition: background 0.3s ease;
   z-index:2;
   margin-top:5px;
@@ -542,6 +542,7 @@ const HomePage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({ id, inaccelerate }),
       });
@@ -763,7 +764,7 @@ const HomePage = () => {
         <>
           <div className='bg-[rgb(37,44,59)]'>
             <div className="min-h-screen bg-[rgb(37,44,59)] relative flex justify-center items-center z-10 w-full p-5 overflow-y-auto">
-              <div className="flex flex-col justify-center items-center gap-5 max-w-[500px] mt-[200px] md:mt-[10px]">
+              <div className="flex flex-col justify-center items-center gap-5 max-w-[700px] mt-[200px] md:mt-[10px]">
                  {setnames.setname.length > 0 && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
                     {setnames.setname.map((setno, index) => (

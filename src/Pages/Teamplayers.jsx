@@ -5,6 +5,7 @@ import Oval from "react-loading-icons/dist/esm/components/oval";
 import { useParams } from 'react-router-dom';
 import ProfileCard from '../components/Profilecard';
 import { MdOutlineCurrencyRupee } from 'react-icons/md';
+import { FaTrashAlt } from 'react-icons/fa';
 const Backend_Url = import.meta.env.VITE_BACKEND_URL;
 
 const GradientCards = styled.div`
@@ -95,6 +96,17 @@ const TableData = styled.td`
   border-bottom: 1px solid #444;
   font-size: 0.9rem;
 `;
+const ActionButton = styled.button`
+  background: none;
+  color: #ff00ff;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.2rem;
+  &:hover {
+    color: #e600e6;
+  }
+`;
 
 const Teamplayers = () => {
   const [loading, setLoading] = useState(true);
@@ -148,6 +160,39 @@ const Teamplayers = () => {
     setSinglePlayer(player);
   }
 
+  const handleDeletePlayer = async (player) => {
+    console.log("In handle delete player function:", player);
+  
+    try {
+      const token = localStorage.getItem("Token"); // Retrieve token from local storage
+      if (!token) {
+        console.error("No authentication token found");
+        return;
+      }
+  
+      const response = await fetch(`${Backend_Url}/api/deleteplayerfromteam`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Pass token in headers
+        },
+        body: JSON.stringify({ id: player._id }), // Pass player ID in request body
+      });
+  
+      const data = await response.json();
+      
+      if (response.ok) {
+        toast.success("Player deleted successfully");
+        fetchPlayers();
+      } else {
+        console.error("Error deleting player:", data.error);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+    }
+  };
+  
+
   return (
     <GradientCards>
       {/* Search Field */}
@@ -175,6 +220,7 @@ const Teamplayers = () => {
                 <TableHeader>Base Price</TableHeader>
                 <TableHeader>Bid Place</TableHeader>
                 <TableHeader>Status</TableHeader>
+                <TableHeader>Action</TableHeader>
               </tr>
             </thead>
             <tbody>
@@ -197,6 +243,15 @@ const Teamplayers = () => {
 
                     <TableData>{player.bidplace}</TableData>
                     <TableData>{player.isSold ? "Sold" : "Unsold"}</TableData>
+                     <TableData
+                                          onClick={(e) => {
+                                            e.stopPropagation(); // Prevent row click event.
+                                          }}
+                                        >
+                                          <ActionButton onClick={() => handleDeletePlayer(player)}>
+                                            <FaTrashAlt />
+                                          </ActionButton>
+                                        </TableData>
                   </tr>
                 ))
               ) : (
