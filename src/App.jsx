@@ -12,19 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './Pages/Homepage';
 import Teamplayers from './Pages/Teamplayers';
 
-// const AppLayout = () => {
-//   return (
-//     <>
-//       <div>
-//         <Navbar />
-//       </div>
-//       <div>
-//         <Outlet />
-//       </div>
-//     </>
-//   );
-// };
-
 const AppLayout = () => {
   return (
     <>
