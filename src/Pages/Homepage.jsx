@@ -6,6 +6,7 @@ import {
   FaBaseballBall,
   FaCalendarAlt,
   FaChartLine,
+ 
   FaDollarSign,
   FaMinus,
   FaPlus,
@@ -727,7 +728,7 @@ const HomePage = () => {
                   <Modal.Header closeButton>
                     <Modal.Title>Select a Team</Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>
+                  {/* <Modal.Body>
                     <select
                       value={selectedTeam}
                       onChange={(e) => setSelectedTeam(e.target.value)}
@@ -737,10 +738,26 @@ const HomePage = () => {
                       {teamnames.map((team, i) => (
                         <option key={i} value={`${team}`}>
                           {team}
-                        </option>
+                        </option> 
                       ))}
                     </select>
-                  </Modal.Body>
+                  </Modal.Body> */}
+                  <Modal.Body>
+  {teamnames.map((team, i) => (
+    <div key={i} className="flex items-center space-x-2">
+      <input
+        type="radio"
+        id={`team-${i}`}
+        name="team"
+        value={team}
+        checked={selectedTeam === team}
+        onChange={(e) => setSelectedTeam(e.target.value)}
+      />
+      <label htmlFor={`team-${i}`}>{team}</label>
+    </div>
+  ))}
+</Modal.Body>
+
                   <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
                       Cancel
