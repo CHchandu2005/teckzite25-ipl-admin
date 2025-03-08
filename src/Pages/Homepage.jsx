@@ -6,7 +6,6 @@ import {
   FaBaseballBall,
   FaCalendarAlt,
   FaChartLine,
- 
   FaDollarSign,
   FaMinus,
   FaPlus,
@@ -485,11 +484,8 @@ const HomePage = () => {
           }
         )
         .then(() => {
-          alert('Bid confirmed!');
-
           socket.emit("bidConfirmed", true, selectedTeam);
           //fetchPlayer( player.set,player.bidplace, "next");
-
           setSuccessbid(true)
           setPlayer(false)
           setTimeout(() => {
