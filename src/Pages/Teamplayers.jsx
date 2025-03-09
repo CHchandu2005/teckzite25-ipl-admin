@@ -196,6 +196,9 @@ const Teamplayers = () => {
   return (
     <GradientCards>
       {/* Search Field */}
+      {/* <h1 className="text-[#ff00ff] text-center text-3xl font-bold my-4">
+      
+    </h1> */}
       <SearchContainer>
         <SearchForm onSubmit={handleSearchSubmit}>
           <SearchInput

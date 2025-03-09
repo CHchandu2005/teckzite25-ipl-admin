@@ -757,7 +757,7 @@ const HomePage = () => {
           </>
 
         ) : !showModal2 && !successbid ? <ButtonGroup>
-          <Card><p>No palyers available</p></Card>
+          <Card><p>No players available</p></Card>
         </ButtonGroup > : null}
       </HeroSection>
       {showModal2 ? (
@@ -778,22 +778,6 @@ const HomePage = () => {
                     ))}
                   </div>
                 )} 
-                {/* {setnames.setname.length > 0 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
-                    {setnames.setname
-                      .slice() // Create a copy to avoid mutating the original array
-                      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true })) // Sort in ascending order
-                      .map((setno, index) => (
-                        <NeonButton
-                          key={index}
-                          className="w-1/2"
-                          onClick={() => chooseset(setnames.set[index])}
-                        >
-                          {setno}
-                        </NeonButton>
-                      ))}
-                  </div>
-                )} */}
 
                 {setnames.setwithoutplayer_setname.length > 0 && (
                   <>
