@@ -77,11 +77,11 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <>
-      {/* <ToastContainer />
+      <ToastContainer />
       <Router>
         <AppRoutes />
-      </Router> */}
-       <UploadFolder/>
+      </Router>
+       {/* <UploadFolder/> */}
     </>
   );
 };
