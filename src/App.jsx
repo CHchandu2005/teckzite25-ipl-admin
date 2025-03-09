@@ -11,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './Pages/Homepage';
 import Teamplayers from './Pages/Teamplayers';
-
+import UploadFolder from './Pages/UploadImages';
 const AppLayout = () => {
   return (
     <>
@@ -77,10 +77,11 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer />
       <Router>
         <AppRoutes />
-      </Router>
+      </Router> */}
+       <UploadFolder/>
     </>
   );
 };
