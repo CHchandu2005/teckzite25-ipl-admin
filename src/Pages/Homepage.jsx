@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
-import { getBidIncrement,getBidDecrement } from './BidConfig';
+import { getBidIncrement, getBidDecrement } from './BidConfig';
 import {
   FaFlag,
   FaBaseballBall,
@@ -466,7 +466,7 @@ const HomePage = () => {
   };
   const handleConfirmBid = () => {
 
-    console.log("In handleconfirm bod:",bidAmount);
+    console.log("In handleconfirm bod:", bidAmount);
     if (player) {
       axios
         .post(
@@ -739,20 +739,20 @@ const HomePage = () => {
                     </select>
                   </Modal.Body> */}
                   <Modal.Body>
-  {teamnames.map((team, i) => (
-    <div key={i} className="flex items-center space-x-2">
-      <input
-        type="radio"
-        id={`team-${i}`}
-        name="team"
-        value={team}
-        checked={selectedTeam === team}
-        onChange={(e) => setSelectedTeam(e.target.value)}
-      />
-      <label htmlFor={`team-${i}`}>{team}</label>
-    </div>
-  ))}
-</Modal.Body>
+                    {teamnames.map((team, i) => (
+                      <div key={i} className="flex items-center space-x-2">
+                        <input
+                          type="radio"
+                          id={`team-${i}`}
+                          name="team"
+                          value={team}
+                          checked={selectedTeam === team}
+                          onChange={(e) => setSelectedTeam(e.target.value)}
+                        />
+                        <label htmlFor={`team-${i}`}>{team}</label>
+                      </div>
+                    ))}
+                  </Modal.Body>
 
                   <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
@@ -770,7 +770,7 @@ const HomePage = () => {
           </>
 
         ) : !showModal2 && !successbid ? <ButtonGroup>
-          <Card><p>No palyers available</p></Card>
+          <Card><p>No players available</p></Card>
         </ButtonGroup > : null}
       </HeroSection>
       {showModal2 ? (
@@ -778,7 +778,7 @@ const HomePage = () => {
           <div className='bg-[rgb(37,44,59)]'>
             <div className="min-h-screen bg-[rgb(37,44,59)] relative flex justify-center items-center z-10 w-full p-5 overflow-y-auto">
               <div className="flex flex-col justify-center items-center gap-5 max-w-[700px] mt-[200px] md:mt-[10px]">
-                 {setnames.setname.length > 0 && (
+                {setnames.setname.length > 0 && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
                     {setnames.setname.map((setno, index) => (
                       <NeonButton
@@ -790,28 +790,13 @@ const HomePage = () => {
                       </NeonButton>
                     ))}
                   </div>
-                )} 
-                {/* {setnames.setname.length > 0 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
-                    {setnames.setname
-                      .slice() // Create a copy to avoid mutating the original array
-                      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true })) // Sort in ascending order
-                      .map((setno, index) => (
-                        <NeonButton
-                          key={index}
-                          className="w-1/2"
-                          onClick={() => chooseset(setnames.set[index])}
-                        >
-                          {setno}
-                        </NeonButton>
-                      ))}
-                  </div>
-                )} */}
+                )}
 
                 {setnames.setwithoutplayer_setname.length > 0 && (
                   <>
                     <h4>Sets without Players</h4>
-                    {setnames.setwithoutplayer_setname.map((setObj, index) => (
+                    {/* {setnames.setwithoutplayer_setname.map((setObj, index) => (
+                      
                       <div
                         key={`without-${index}`}
                         className="m-2.5 flex justify-center w-full"
@@ -820,7 +805,20 @@ const HomePage = () => {
                           {setObj}
                         </NeonButton>
                       </div>
-                    ))}
+                    ))} */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 w-full">
+                      {setnames.setwithoutplayer_setname.map((setObj, index) => (
+                        <div key={`without-${index}`} className="flex justify-center">
+                          <NeonButton
+                            className="w-full"
+                            onClick={() => toast.error("no players in this set")}
+                          >
+                            {setObj}
+                          </NeonButton>
+                        </div>
+                      ))}
+                    </div>
+
                   </>
                 )}
               </div>
