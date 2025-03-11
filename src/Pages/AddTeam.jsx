@@ -419,7 +419,7 @@ const AddTeam = () => {
         setTeamData(data);
   
         // List of all teams
-        const allTeams = ["RCB", "MI", "CSK", "KKR", "DC", "GT", "LSG", "KXIP", "RR","SRH"];
+        const allTeams = ["RCB", "MI", "CSK", "KKR", "DC", "GT", "LSG", "PBKS", "RR","SRH"];
   
         // Extract existing team IDs from the fetched data
         const existingTeams = data.map((team) => team.teamID);
