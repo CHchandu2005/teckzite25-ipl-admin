@@ -188,7 +188,12 @@ const ProfileCard = ({ player }) => {
                 </tr>
                 <tr>
                   <TableData>Sold Amount</TableData>
-                  <TableData>${player.soldAmount}</TableData>
+                  <TableData>
+                    {/* ${player.soldAmount} */}
+                     <span className="flex items-center">
+                                            <MdOutlineCurrencyRupee className="" /> {player.soldAmount} L
+                                          </span>
+                    </TableData>
                 </tr>
               </>
             )}
